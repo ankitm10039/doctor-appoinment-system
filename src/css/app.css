@@ -1,12 +1,6 @@
 /* app global css */
 @import url('https://fonts.cdnfonts.com/css/satoshi');
 
-/* Tailwind directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 
 body{
     font-family: 'Satoshi', sans-serif !important;

@@ -79,11 +79,7 @@ const routes = [
         component: () => import('pages/user/ProfilePage.vue'),
         meta: { requiresAuth: true }  // This route requires authentication
       },
-      {
-        path: 'tailwind-buttons',
-        name: 'tailwind-buttons',
-        component: () => import('pages/TailwindButtonsPage.vue')
-      }
+      // Removed Tailwind buttons page
     ]
   }
 ]
