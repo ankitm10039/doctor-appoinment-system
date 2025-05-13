@@ -38,7 +38,12 @@
           Doctor Appointment System
         </q-item-label>
 
-        <q-item clickable to="/" exact>
+        <q-item 
+          clickable 
+          to="/" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
@@ -47,7 +52,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/doctors" exact>
+        <q-item 
+          clickable 
+          to="/doctors" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="medical_services" />
           </q-item-section>
@@ -56,7 +66,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/doctors/add" exact>
+        <q-item 
+          clickable 
+          to="/doctors/add" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="person_add" />
           </q-item-section>
@@ -65,7 +80,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/appointments" exact>
+        <q-item 
+          clickable 
+          to="/appointments" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="event" />
           </q-item-section>
@@ -74,7 +94,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/appointments/create" exact>
+        <q-item 
+          clickable 
+          to="/appointments/create" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="add_circle" />
           </q-item-section>
@@ -83,7 +108,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/appointment-history" exact>
+        <q-item 
+          clickable 
+          to="/appointment-history" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="history" />
           </q-item-section>
@@ -92,7 +122,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/schedule" exact>
+        <q-item 
+          clickable 
+          to="/schedule" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="schedule" />
           </q-item-section>
@@ -101,7 +136,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/reports" exact>
+        <q-item 
+          clickable 
+          to="/reports" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="analytics" />
           </q-item-section>
@@ -110,7 +150,12 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/settings" exact>
+        <q-item 
+          clickable 
+          to="/settings" 
+          exact
+          active-class="bg-primary text-white"
+        >
           <q-item-section avatar>
             <q-icon name="settings" />
           </q-item-section>
@@ -119,11 +164,30 @@
           </q-item-section>
         </q-item>
 
+        <q-item 
+          clickable 
+          to="/tailwind-buttons" 
+          exact
+          active-class="bg-primary text-white"
+        >
+          <q-item-section avatar>
+            <q-icon name="smart_button" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Tailwind Buttons</q-item-label>
+          </q-item-section>
+        </q-item>
+
         <!-- Add spacer to push logout to bottom -->
         <q-space />
 
         <!-- Logout button at bottom -->
-        <q-item v-if="isAuthenticated" clickable @click="handleLogout" class="logout-item">
+        <q-item 
+          v-if="isAuthenticated" 
+          clickable 
+          @click="handleLogout" 
+          class="logout-item hover:bg-red-500 hover:text-white"
+        >
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>

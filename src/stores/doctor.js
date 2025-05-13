@@ -10,7 +10,22 @@ export const useDoctorStore = defineStore('doctor', {
         experience: '15 years',
         email: 'john.smith@example.com',
         phone: '+1 (555) 123-4567',
-        avatar: 'https://cdn.quasar.dev/img/avatar1.jpg'
+        avatar: 'https://cdn.quasar.dev/img/avatar1.jpg',
+        bio: 'Dr. John Smith is a board-certified cardiologist with over 15 years of experience in treating heart conditions. He specializes in interventional cardiology and has performed over 1,000 cardiac procedures.',
+        education: [
+          'MD, Harvard Medical School',
+          'Residency in Internal Medicine, Massachusetts General Hospital',
+          'Fellowship in Cardiology, Cleveland Clinic'
+        ],
+        availability: {
+          Monday: '9:00 AM - 5:00 PM',
+          Tuesday: '9:00 AM - 5:00 PM',
+          Wednesday: '9:00 AM - 5:00 PM',
+          Thursday: '9:00 AM - 5:00 PM',
+          Friday: '9:00 AM - 3:00 PM'
+        },
+        languages: ['English', 'Spanish'],
+        rating: 4.8
       },
       {
         id: 2,
@@ -197,6 +212,24 @@ export const useDoctorStore = defineStore('doctor', {
       return this.doctors
     },
 
+    async getDoctorById(id) {
+      this.loading = true
+      try {
+        // Simulating API call
+        await new Promise(resolve => setTimeout(resolve, 500))
+        const doctor = this.doctors.find(doc => doc.id === id)
+        if (!doctor) {
+          throw new Error('Doctor not found')
+        }
+        return doctor
+      } catch (error) {
+        this.error = error.message
+        throw error
+      } finally {
+        this.loading = false
+      }
+    },
+
     async createDoctor(doctorData) {
       this.loading = true
       try {
@@ -214,9 +247,44 @@ export const useDoctorStore = defineStore('doctor', {
     
     async deleteDoctor(id) {
       this.loading = true
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      this.doctors = this.doctors.filter(doc => doc.id !== id)
-      this.loading = false
+      try {
+        // Simulating API call
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        this.doctors = this.doctors.filter(doc => doc.id !== id)
+        return true
+      } catch (error) {
+        this.error = error.message
+        throw error
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async updateDoctor(id, updatedData) {
+      this.loading = true
+      try {
+        // Simulating API call
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        
+        const index = this.doctors.findIndex(doc => doc.id === id)
+        if (index === -1) {
+          throw new Error('Doctor not found')
+        }
+        
+        // Update doctor data while preserving the id
+        this.doctors[index] = { 
+          ...this.doctors[index], 
+          ...updatedData,
+          id // Ensure ID doesn't change
+        }
+        
+        return this.doctors[index]
+      } catch (error) {
+        this.error = error.message
+        throw error
+      } finally {
+        this.loading = false
+      }
     }
   }
 })

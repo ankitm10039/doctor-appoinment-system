@@ -43,12 +43,15 @@
             label="Cancel"
             color="negative"
             flat
+            outline
+            rounded
             class="q-mr-sm"
             :to="{ name: 'appointment-list' }"
           />
           <q-btn
             label="Create"
             type="submit"
+            rounded
             color="primary"
           />
         </div>

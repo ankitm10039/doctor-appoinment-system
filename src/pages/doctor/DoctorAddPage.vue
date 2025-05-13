@@ -3,7 +3,7 @@
       <div class="q-pa-md q-mx-auto" style="max-width: 900px">
         <div class="row q-mb-md">
           <div class="col-12">
-            <div class="text-h4">Add New Doctor</div>
+            <div class="text-h4 text-blue-600 font-bold">Add New Doctor</div>
           </div>
         </div>
   
@@ -61,14 +61,16 @@
             <q-btn
               label="Cancel"
               color="negative"
-              flat
-              class="q-mr-sm"
+              outline rounded
+              class="q-mr-sm text-capitalize"
               :to="{ name: 'doctor-list' }"
             />
             <q-btn
               label="Save"
               type="submit"
               color="primary"
+              rounded
+              class="text-capitalize"
             />
           </div>
         </q-form>

@@ -26,7 +26,9 @@
               />
               <q-btn
                 type="submit"
+                rounded
                 color="primary"
+                class="text-capitalize"
                 label="Save Settings"
               />
             </q-form>

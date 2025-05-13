@@ -6,6 +6,7 @@
         <q-btn
           color="primary"
           icon="add"
+          rounded
           label="Create Appointment"
           :to="{ name: 'appointment-create' }"
           class="q-mt-sm text-capitalize"

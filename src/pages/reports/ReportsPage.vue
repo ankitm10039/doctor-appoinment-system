@@ -10,7 +10,7 @@
         <q-card>
           <q-card-section>
             <div class="text-h6">Monthly Appointments (Bar)</div>
-            <canvas id="monthlyStats"></canvas>
+            <canvas ref="monthlyStatsRef"></canvas>
           </q-card-section>
         </q-card>
       </div>
@@ -20,7 +20,7 @@
         <q-card>
           <q-card-section>
             <div class="text-h6">Doctor Performance (Bar)</div>
-            <canvas id="doctorPerformance"></canvas>
+            <canvas ref="doctorPerformanceRef"></canvas>
           </q-card-section>
         </q-card>
       </div>
@@ -30,7 +30,7 @@
         <q-card>
           <q-card-section>
             <div class="text-h6">Appointment Trend (Line)</div>
-            <canvas id="appointmentTrend"></canvas>
+            <canvas ref="appointmentTrendRef"></canvas>
           </q-card-section>
         </q-card>
       </div>
@@ -40,7 +40,7 @@
         <q-card>
           <q-card-section>
             <div class="text-h6">Appointment Status Distribution</div>
-            <canvas id="appointmentStatus"></canvas>
+            <canvas ref="appointmentStatusRef"></canvas>
           </q-card-section>
         </q-card>
       </div>
@@ -49,21 +49,29 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useReportsStore } from 'stores/reports'
 import Chart from 'chart.js/auto'
 
+// Store setup
 const reportsStore = useReportsStore()
 const { monthlyStats, doctorPerformance, appointmentStatus } = storeToRefs(reportsStore)
 
+// Refs for canvas elements
+const monthlyStatsRef = ref(null)
+const doctorPerformanceRef = ref(null)
+const appointmentTrendRef = ref(null)
+const appointmentStatusRef = ref(null)
+
+// Chart rendering on mount
 onMounted(async () => {
   await reportsStore.fetchMonthlyStats()
   await reportsStore.fetchDoctorPerformance()
   await reportsStore.fetchAppointmentStatus()
 
   // Monthly Stats - Bar Chart
-  new Chart(document.getElementById('monthlyStats'), {
+  new Chart(monthlyStatsRef.value, {
     type: 'bar',
     data: {
       labels: monthlyStats.value.map(stat => stat.month),
@@ -94,28 +102,20 @@ onMounted(async () => {
     options: {
       responsive: true,
       plugins: {
-        legend: {
-          position: 'top'
-        },
-        title: {
-          display: true,
-          text: 'Monthly Appointment Statistics'
-        }
+        legend: { position: 'top' },
+        title: { display: true, text: 'Monthly Appointment Statistics' }
       },
       scales: {
         y: {
           beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Number of Appointments'
-          }
+          title: { display: true, text: 'Number of Appointments' }
         }
       }
     }
   })
 
-  // Doctor Performance - Bar Chart
-  new Chart(document.getElementById('doctorPerformance'), {
+  // Doctor Performance - Bar + Line Chart
+  new Chart(doctorPerformanceRef.value, {
     type: 'bar',
     data: {
       labels: doctorPerformance.value.map(doc => doc.doctorName),
@@ -142,42 +142,29 @@ onMounted(async () => {
     options: {
       responsive: true,
       plugins: {
-        legend: {
-          position: 'top'
-        },
-        title: {
-          display: true,
-          text: 'Doctor Performance Overview'
-        }
+        legend: { position: 'top' },
+        title: { display: true, text: 'Doctor Performance Overview' }
       },
       scales: {
         y: {
           beginAtZero: true,
           position: 'left',
-          title: {
-            display: true,
-            text: 'Number of Appointments'
-          }
+          title: { display: true, text: 'Number of Appointments' }
         },
         y1: {
           beginAtZero: true,
           position: 'right',
-          title: {
-            display: true,
-            text: 'Rating'
-          },
+          title: { display: true, text: 'Rating' },
           min: 0,
           max: 5,
-          grid: {
-            drawOnChartArea: false
-          }
+          grid: { drawOnChartArea: false }
         }
       }
     }
   })
 
   // Appointment Trend - Line Chart
-  new Chart(document.getElementById('appointmentTrend'), {
+  new Chart(appointmentTrendRef.value, {
     type: 'line',
     data: {
       labels: monthlyStats.value.map(stat => stat.month),
@@ -193,28 +180,20 @@ onMounted(async () => {
     options: {
       responsive: true,
       plugins: {
-        legend: {
-          position: 'top'
-        },
-        title: {
-          display: true,
-          text: 'Appointment Trend Analysis'
-        }
+        legend: { position: 'top' },
+        title: { display: true, text: 'Appointment Trend Analysis' }
       },
       scales: {
         y: {
           beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Number of Appointments'
-          }
+          title: { display: true, text: 'Number of Appointments' }
         }
       }
     }
   })
 
   // Appointment Status - Pie Chart
-  new Chart(document.getElementById('appointmentStatus'), {
+  new Chart(appointmentStatusRef.value, {
     type: 'pie',
     data: {
       labels: ['Confirmed', 'Pending', 'Cancelled'],
@@ -224,32 +203,20 @@ onMounted(async () => {
           appointmentStatus.value.pending,
           appointmentStatus.value.cancelled
         ],
-        backgroundColor: [
-          '#4CAF50',
-          '#FFC107',
-          '#EF5350'
-        ],
-        borderColor: [
-          '#388E3C',
-          '#FFA000',
-          '#D32F2F'
-        ],
+        backgroundColor: ['#4CAF50', '#FFC107', '#EF5350'],
+        borderColor: ['#388E3C', '#FFA000', '#D32F2F'],
         borderWidth: 1
       }]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: {
-          position: 'top'
-        },
-        title: {
-          display: true,
-          text: 'Appointment Status Distribution'
-        }
+        legend: { position: 'top' },
+        title: { display: true, text: 'Appointment Status Distribution' }
       }
     }
   })
 })
 </script>
+
   
