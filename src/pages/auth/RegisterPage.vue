@@ -27,9 +27,15 @@
   outlined
   class="q-mb-md"
   :rules="[val => !!val || 'Password is required']"
-  :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-  @click:append="showPassword = !showPassword"
-/>
+>
+  <template v-slot:append>
+    <q-icon
+      :name="showPassword ? 'visibility_off' : 'visibility'"
+      class="cursor-pointer"
+      @click="showPassword = !showPassword"
+    />
+  </template>
+</q-input>
 
 <q-input
   v-model="registerForm.confirmPassword"
@@ -41,9 +47,15 @@
     val => !!val || 'Confirmation is required',
     val => val === registerForm.password || 'Passwords do not match'
   ]"
-  :append-icon="showConfirmPassword ? 'visibility_off' : 'visibility'"
-  @click:append="showConfirmPassword = !showConfirmPassword"
-/>
+>
+  <template v-slot:append>
+    <q-icon
+      :name="showConfirmPassword ? 'visibility_off' : 'visibility'"
+      class="cursor-pointer"
+      @click="showConfirmPassword = !showConfirmPassword"
+    />
+  </template>
+</q-input>
             <q-btn
               type="submit"
               color="primary"

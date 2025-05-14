@@ -163,21 +163,6 @@
             <q-item-label>Settings</q-item-label>
           </q-item-section>
         </q-item>
-
-        <q-item 
-          clickable 
-          to="/tailwind-buttons" 
-          exact
-          active-class="bg-primary text-white"
-        >
-          <q-item-section avatar>
-            <q-icon name="smart_button" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Tailwind Buttons</q-item-label>
-          </q-item-section>
-        </q-item>
-
         <!-- Add spacer to push logout to bottom -->
         <q-space />
 

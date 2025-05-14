@@ -211,6 +211,59 @@ export const useDoctorStore = defineStore('doctor', {
       this.loading = false
       return this.doctors
     },
+    
+    async fetchDoctorSchedule(doctorId) {
+      this.loading = true
+      try {
+        // Simulating API call
+        await new Promise(resolve => setTimeout(resolve, 500))
+        
+        // Default schedule template
+        const defaultSchedule = [
+          { id: 1, day: 'Monday', startTime: '09:00', endTime: '17:00', availability: true },
+          { id: 2, day: 'Tuesday', startTime: '09:00', endTime: '17:00', availability: true },
+          { id: 3, day: 'Wednesday', startTime: '09:00', endTime: '17:00', availability: true },
+          { id: 4, day: 'Thursday', startTime: '09:00', endTime: '17:00', availability: true },
+          { id: 5, day: 'Friday', startTime: '09:00', endTime: '17:00', availability: true }
+        ]
+        
+        // Find the doctor
+        const doctor = this.doctors.find(doc => doc.id === doctorId)
+        
+        // If doctor has availability property, convert it to schedule format
+        if (doctor && doctor.availability) {
+          const schedule = []
+          let id = 1
+          
+          for (const [day, hours] of Object.entries(doctor.availability)) {
+            const [startTime, endTime] = hours.split(' - ')
+            schedule.push({
+              id: id++,
+              day: day,
+              startTime: startTime.replace(' AM', '').replace(' PM', ''),
+              endTime: endTime.replace(' AM', '').replace(' PM', ''),
+              availability: true
+            })
+          }
+          
+          return schedule
+        }
+        
+        // If no availability property, return a generated schedule based on doctor ID
+        return defaultSchedule.map(item => ({
+          ...item,
+          // Vary availability based on doctor ID to make it look realistic
+          availability: (doctorId % 2 === 0) ? 
+            (item.day !== 'Wednesday') : 
+            (item.day !== 'Friday')
+        }))
+      } catch (error) {
+        this.error = error.message
+        throw error
+      } finally {
+        this.loading = false
+      }
+    },
 
     async getDoctorById(id) {
       this.loading = true
